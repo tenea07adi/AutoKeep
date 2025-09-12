@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Core.Services
 {
-    public class GenericEntityService<T> : IGenericEntityService<T> where T : BaseEntity
+    public class GenericEntityService<T> : IGenericEntityService<T> where T : BaseEntity, new()
     {
         private readonly IGenericRepo<T> _genericRepo;
         public GenericEntityService(IGenericRepo<T> genericRepo)

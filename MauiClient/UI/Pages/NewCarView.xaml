@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<abstract:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiClient.UI.Pages.NewCarView"
+             xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
+             Title="New car"
+             Padding="10">
+    <VerticalStackLayout>
+        <Label 
+            Text="Vehicle nickname"
+            Style="{StaticResource FieldLabel}"/>
+        <Entry 
+            x:Name="NicknameInput"
+            HorizontalOptions="Fill"
+            Text="{Binding Car.Nickname}"
+            MaxLength="100"/>
+
+        <Label 
+            Text="Vehicle registration plate"
+            Style="{StaticResource FieldLabel}"/>
+        <Entry 
+            x:Name="VehicleRegistrationPlateInput"
+            HorizontalOptions="Fill"
+            Text="{Binding Car.VehicleRegistrationPlate}"
+            MaxLength="100"/>
+
+        <Label 
+            Text="Vehicle fabrication date"
+            Style="{StaticResource FieldLabel}"/>
+        <DatePicker
+            x:Name="FabricationDateInput"
+            Date="{Binding Car.FabricationDate}"/>
+
+        <Label 
+            Text="Vehicle km passed"
+            Style="{StaticResource FieldLabel}"/>
+        <Entry 
+            x:Name="KmPassedInput"
+            Keyboard="Numeric"
+            HorizontalOptions="Fill"
+            Text="{Binding Car.KmPassed}"
+            MaxLength="100"/>
+
+        <Button 
+            x:Name="AddButton"
+            Text="Add"
+            Style="{StaticResource FormButton}"
+            Command="{Binding AddNewCar}" />
+    </VerticalStackLayout>
+</abstract:BaseContentPage>

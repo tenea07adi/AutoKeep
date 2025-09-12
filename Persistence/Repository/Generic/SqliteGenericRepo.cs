@@ -9,6 +9,11 @@ namespace Persistence.Repository.Generic
     {
         public async Task<List<T>> GetAsync(Expression<Func<T, bool>>? expression = null)
         {
+            if(expression == null)
+            {
+                expression = c => true;
+            }
+
             return await SqliteDataBase.DataBase.Table<T>().Where(expression).ToListAsync();
         }
 

@@ -1,29 +1,15 @@
 ﻿using Core.Entities.Persisted;
+using MauiClient.ViewModels.Abstract;
 
 namespace MauiClient.ViewModels
 {
-    public class CarViewModel
+    public class CarViewModel : BaseViewModel
     {
         public Car Car { get; set; }
 
         public CarViewModel()
         {
-            
-        }
-
-        public void UpdateCar()
-        {
-
-        }
-
-        public void AddCar()
-        {
-
-        }
-
-        public void DeleteCar()
-        {
-
+          
         }
     }
 }

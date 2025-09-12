@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Core.Ports.Driving
 {
-    public interface IGenericEntityService<T> where T : BaseEntity
+    public interface IGenericEntityService<T> where T : BaseEntity, new()
     {
         public Task<List<T>> GetAsync(Expression<Func<T, bool>>? expression = null);
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<abstract:BaseContentPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiClient.UI.Pages.CarsListView"
+             xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
+             Title="CarsListView"
+             Padding="10">
+    <Grid RowDefinitions="Auto, *" RowSpacing="10">
+        <!-- Row 0: Butonul -->
+        <Button
+            Grid.Row="0"
+            Text="Add a new car"
+            Command="{Binding NavigateToNewCarCommand}" />
+
+        <!-- Row 1: Lista, care umple restul spațiului -->
+        <ListView 
+            Grid.Row="1"
+            ItemsSource="{Binding Cars}"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell
+                        Text="{Binding VehicleRegistrationPlate, StringFormat='Plates: {0:F0}'}"
+                        Detail="{Binding Nickname, StringFormat='Nickname: {0:F0}'}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</abstract:BaseContentPage>

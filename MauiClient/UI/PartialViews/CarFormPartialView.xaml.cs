@@ -1,4 +1,4 @@
-namespace MauiClient.PartialViews;
+namespace MauiClient.UI.PartialViews;
 
 public partial class CarFormPartialView : ContentView
 {
