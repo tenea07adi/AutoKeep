@@ -39,7 +39,8 @@ namespace Persistence.Repository.Generic
         public async Task UpdateAsync(T entity)
         {
             var existingEntity = await GetAsync(entity.Id);
-            if (entity != null)
+
+            if (existingEntity != null)
             {
                 _dbContext.Set<T>().Update(entity);
                 await _dbContext.SaveChangesAsync();
@@ -49,6 +50,7 @@ namespace Persistence.Repository.Generic
         public async Task DeleteAsync(int id)
         {
             var entity = await GetAsync(id);
+
             if(entity != null)
             {
                 _dbContext.Set<T>().Remove(entity);
