@@ -45,6 +45,10 @@ namespace Persistence.Repository.Generic
                 _dbContext.Set<T>().Update(entity);
                 await _dbContext.SaveChangesAsync();
             }
+            else
+            {
+                throw new KeyNotFoundException($"Entity of type {typeof(T).Name} with Id {entity.Id} not found.");
+            }
         }
 
         public async Task DeleteAsync(int id)
@@ -55,6 +59,10 @@ namespace Persistence.Repository.Generic
             {
                 _dbContext.Set<T>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Entity of type {typeof(T).Name} with Id {entity.Id} not found.");
             }
         }
     }
