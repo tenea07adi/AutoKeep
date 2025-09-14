@@ -1,6 +1,4 @@
-﻿using SQLite;
-
-namespace MauiClient.Constants
+﻿namespace MauiClient.Constants
 {
     public static partial class Constants
     {
