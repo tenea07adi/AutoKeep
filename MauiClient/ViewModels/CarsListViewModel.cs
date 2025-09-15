@@ -18,9 +18,29 @@ namespace MauiClient.ViewModels
 
         public ObservableCollection<Car> Cars { get; set; } = new();
 
+        public Car? SelectedCar
+        {
+            get
+            {
+                return _selectedCar;
+            }
+            set
+            {
+                _selectedCar = value;
+                OnPropertyChanged(nameof(SelectedCar));
+            }
+        }
+
+        private Car? _selectedCar = null;
+
         public ICommand NavigateToNewCarCommand => new Command(() =>
         {
             _ = NavigateToAddNewCar();
+        });
+
+        public ICommand NavigateToCarDetailsCommand => new Command<Car>((Car car) =>
+        {
+            _ = NavigateToCarDetails(car);
         });
 
         public CarsListViewModel(INavigationService navigationService, IGenericEntityService<Car> carService)
@@ -44,9 +64,11 @@ namespace MauiClient.ViewModels
 
         private async Task LoadCars()
         {
-            _cars = await _carService.GetAsync();
+            SelectedCar = null;
 
             Cars.Clear();
+
+            _cars = await _carService.GetAsync();
 
             foreach (var car in _cars)
             {
@@ -59,31 +81,14 @@ namespace MauiClient.ViewModels
             await _navigationService.NavigateToDetailsPageAsync<NewCarView>();
         }
 
-        private void PopulateDummyData()
+        private async Task NavigateToCarDetails(Car car)
         {
-            _cars.Add(new Car()
+            var navParams = new Dictionary<string, object>
             {
-                FabricationDate = DateTime.Now.AddYears(7),
-                Nickname = "BMV S1",
-                KmPassed = 204065,
-                VehicleRegistrationPlate = "DJ-02-TST"
-            });
+                { "id", car.Id }
+            };
 
-            _cars.Add(new Car()
-            {
-                FabricationDate = DateTime.Now.AddYears(5),
-                Nickname = "Hyunadi 1",
-                KmPassed = 20051,
-                VehicleRegistrationPlate = "B-561-NEW"
-            });
-
-            _cars.Add(new Car()
-            {
-                FabricationDate = DateTime.Now.AddYears(2),
-                Nickname = "MiniOne",
-                KmPassed = 100000,
-                VehicleRegistrationPlate = "DJ-22-EXE"
-            });
+            await _navigationService.NavigateToDetailsPageAsync<CarView>(navParams);
         }
     }
 }

@@ -2,8 +2,11 @@
 <abstract:BaseContentPage 
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiClient.UI.Pages.CarsListView"
              xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
+             xmlns:models="clr-namespace:Core.Entities.Persisted;assembly=Core"
+             xmlns:vm="clr-namespace:MauiClient.ViewModels"
+             x:Class="MauiClient.UI.Pages.CarsListView"
+             x:DataType="vm:CarsListViewModel"
              Title="CarsListView"
              Padding="10">
     <Grid RowDefinitions="Auto, *" RowSpacing="10">
@@ -15,12 +18,17 @@
 
         <!-- Row 1: Lista, care umple restul spațiului -->
         <CollectionView 
+            x:Name="ItemsCollectionView"
             Grid.Row="1"
             ItemsSource="{Binding Cars}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedCar}"
+            SelectionChangedCommand="{Binding NavigateToCarDetailsCommand}" 
+            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ItemsCollectionView}}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:Car">
                     <Border>
                         <StackLayout Orientation="Vertical" VerticalOptions="Start">
                             <StackLayout Orientation="Horizontal">
