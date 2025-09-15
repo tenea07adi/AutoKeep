@@ -15,10 +15,10 @@
                 <Label Text="Car details" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
                    FontAttributes="Bold" TextTransform="Uppercase" />
                 <Border Padding="0"></Border>
-                <pv:DisplayFieldPartialView FieldName="Plate:" FielValue="{Binding Car.VehicleRegistrationPlate}" Padding="0,5,0,0" />
-                <pv:DisplayFieldPartialView FieldName="Nickname:" FielValue="{Binding Car.Nickname}" Padding="0,5,0,0" />
-                <pv:DisplayFieldPartialView FieldName="Fabrication date:" FielValue="{Binding Car.FabricationDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
-                <pv:DisplayFieldPartialView FieldName="Km passed:" FielValue="{Binding Car.KmPassed}" Format="{}{0:F0} KM" Padding="0,5,0,0" />
+                <pv:DisplayFieldPartialView FieldName="Plate:" FieldValue="{Binding Car.VehicleRegistrationPlate}" Padding="0,5,0,0" />
+                <pv:DisplayFieldPartialView FieldName="Nickname:" FieldValue="{Binding Car.Nickname}" Padding="0,5,0,0" />
+                <pv:DisplayFieldPartialView FieldName="Fabrication date:" FieldValue="{Binding Car.FabricationDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
+                <pv:DisplayFieldPartialView FieldName="Km passed:" FieldValue="{Binding Car.KmPassed}" Format="{}{0:F0} KM" Padding="0,5,0,0" />
             </StackLayout>
         </Border>
         <Border Margin="0,15,0,0">

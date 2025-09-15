@@ -18,8 +18,6 @@ namespace MauiClient.ViewModels
 
         public ObservableCollection<Car> Cars { get; set; } = new();
 
-        private ObservableCollection<Car> _carsList = new();
-
         public Car? SelectedCar
         {
             get
