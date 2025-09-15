@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
  ## [Unreleased]
 
+### Added
+ - Create car details page [#5](https://github.com/tenea07adi/AutoKeep/issues/5)
+
 ### Improvements
  - Implement EF with SqlLight [#1](https://github.com/tenea07adi/AutoKeep/issues/1)
  - Improve UI [#3](https://github.com/tenea07adi/AutoKeep/issues/3)
