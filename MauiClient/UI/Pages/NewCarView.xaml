@@ -8,32 +8,33 @@
     <VerticalStackLayout>
         <Label 
             Text="Vehicle nickname"
-            Style="{StaticResource FieldLabel}"/>
+            Margin="0,15,0,0"/>
         <Entry 
             x:Name="NicknameInput"
             HorizontalOptions="Fill"
             Text="{Binding Car.Nickname}"
             MaxLength="100"/>
-
+        
         <Label 
             Text="Vehicle registration plate"
-            Style="{StaticResource FieldLabel}"/>
+            Margin="0,15,0,0"/>
         <Entry 
             x:Name="VehicleRegistrationPlateInput"
             HorizontalOptions="Fill"
             Text="{Binding Car.VehicleRegistrationPlate}"
+            IsTextPredictionEnabled="false"
             MaxLength="100"/>
 
         <Label 
             Text="Vehicle fabrication date"
-            Style="{StaticResource FieldLabel}"/>
+            Margin="0,15,0,0"/>
         <DatePicker
             x:Name="FabricationDateInput"
             Date="{Binding Car.FabricationDate}"/>
 
         <Label 
             Text="Vehicle km passed"
-            Style="{StaticResource FieldLabel}"/>
+            Margin="0,15,0,0"/>
         <Entry 
             x:Name="KmPassedInput"
             Keyboard="Numeric"
@@ -44,7 +45,7 @@
         <Button 
             x:Name="AddButton"
             Text="Add"
-            Style="{StaticResource FormButton}"
+            Margin="0,15,0,0"
             Command="{Binding AddNewCar}" />
     </VerticalStackLayout>
 </abstract:BaseContentPage>
