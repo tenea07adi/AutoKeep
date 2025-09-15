@@ -85,6 +85,9 @@
 	  <MauiXaml Update="UI\Pages\NewCarView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\PartialViews\DisplayFieldPartialView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
