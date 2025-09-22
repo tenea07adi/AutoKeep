@@ -1,4 +1,5 @@
-﻿using Core.Ports.Driven;
+﻿using CommunityToolkit.Maui;
+using Core.Ports.Driven;
 using Core.Ports.Driving;
 using Core.Services;
 using MauiClient.Adapters.Navigation;
@@ -16,6 +17,7 @@ namespace MauiClient
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -38,6 +40,7 @@ namespace MauiClient
             builder.Services.AddSingleton<CarsListViewModel>();
             builder.Services.AddSingleton<NewCarViewModel>();
             builder.Services.AddSingleton<CarViewModel>();
+            builder.Services.AddSingleton<NewGenericReminderViewModel>();
 
 
 #if DEBUG

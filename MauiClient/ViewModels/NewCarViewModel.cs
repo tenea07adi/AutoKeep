@@ -30,10 +30,7 @@ namespace MauiClient.ViewModels
         {
             base.OnAppearing();
 
-            Car = new Car()
-            {
-                FabricationDate = DateTime.Now.AddMonths(-1)
-            };
+            InitDefaultData();
         }
 
         private void AddCar()
@@ -66,6 +63,16 @@ namespace MauiClient.ViewModels
             }
 
             return true;
+        }
+
+        private void InitDefaultData()
+        {
+            Car = new Car()
+            {
+                FabricationDate = DateTime.Now
+            };
+
+            OnPropertyChanged(nameof(Car));
         }
     }
 }

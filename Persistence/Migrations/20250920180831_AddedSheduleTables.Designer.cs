@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.DataBase;
 
@@ -10,9 +11,11 @@ using Persistence.DataBase;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250920180831_AddedSheduleTables")]
+    partial class AddedSheduleTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
@@ -28,9 +31,6 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("reminder_type")
                         .IsRequired()
@@ -94,9 +94,6 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("LastScheduledDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("NotificationsIntervalInDays")
                         .HasColumnType("INTEGER");
 
@@ -128,9 +125,12 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("INTEGER");
 
                     b.HasDiscriminator().HasValue("reminder_generic");
                 });

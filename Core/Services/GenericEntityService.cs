@@ -15,6 +15,8 @@ namespace Core.Services
 
         public async Task AddAsync(T entity)
         {
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
             await _genericRepo.AddAsync(entity);
         }
 
@@ -35,6 +37,7 @@ namespace Core.Services
 
         public async Task UpdateAsync(T entity)
         {
+            entity.UpdatedAt = DateTime.Now;
             await _genericRepo.UpdateAsync(entity);
         }
     }
