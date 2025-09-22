@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Persistence.DataBase;
 
 namespace MauiClient
@@ -11,6 +10,8 @@ namespace MauiClient
             InitializeComponent();
 
             dataBase.Database.Migrate();
+
+            Application.Current.UserAppTheme = AppTheme.Light; // Force light theme
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
