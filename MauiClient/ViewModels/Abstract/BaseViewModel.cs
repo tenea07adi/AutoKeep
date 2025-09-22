@@ -13,7 +13,10 @@ namespace MauiClient.ViewModels.Abstract
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            OnNavigatedToWithParams(query);
+            if(query != null && query.Count() > 0)
+            {
+                OnNavigatedToWithParams(query);
+            }
         }
 
         #region Lifecycle Methods

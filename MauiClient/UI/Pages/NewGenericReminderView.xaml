@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<abstract:BaseContentPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MauiClient.UI.Pages.NewGenericReminderView"
+             xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
+             xmlns:vm="clr-namespace:MauiClient.ViewModels"
+             x:DataType="vm:NewGenericReminderViewModel"
+             Title="New Generic Reminder">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Padding="15">
+            <Label 
+                Text="Title"
+                Margin="0,15,0,0"/>
+            <Entry 
+                x:Name="Title"
+                HorizontalOptions="Fill"
+                Text="{Binding GenericReminder.Name}"
+                MaxLength="50"/>
+
+            <Label 
+                Text="Description"
+                Margin="0,15,0,0"/>
+            <Editor 
+                x:Name="Description"
+                HorizontalOptions="Fill"
+                Text="{Binding GenericReminder.Description}"
+                HeightRequest="100"
+                MaxLength="500"/>
+
+            <Label 
+                Text="Have a last scheduled date?"
+                Margin="0,15,0,0"/>
+            <Switch  
+                x:Name="HaveLastScheduledDate"
+                HorizontalOptions="Start"
+                IsEnabled="{Binding IsToggled, Source={x:Reference HaveLastScheduledDate}, Converter={StaticResource InvertedBoolConverter}}"
+                IsToggled="False"/>
+
+            <Label 
+                Text="Last scheduled date"
+                IsVisible="{Binding IsToggled, Source={x:Reference HaveLastScheduledDate}}"
+                Margin="0,15,0,0"/>
+            <DatePicker
+                x:Name="LastScheduledDate"
+                IsVisible="{Binding IsToggled, Source={x:Reference HaveLastScheduledDate}}"
+                Date="{Binding Schedule.LastScheduledDate}"/>
+
+            <Label 
+                Text="Scheduled date"
+                Margin="0,15,0,0"/>
+            <DatePicker
+                x:Name="ScheduledDate"
+                Date="{Binding Schedule.ScheduledDate}"/>
+
+            <Label 
+                Text="Send notifications?"
+                Margin="0,15,0,0"/>
+            <Switch  
+                x:Name="SendNotifications"
+                HorizontalOptions="Start"
+                IsToggled="{Binding Schedule.SendNotifications}"/>
+
+            <Label 
+                IsVisible="{Binding IsToggled, Source={x:Reference SendNotifications}}"
+                Text="Notifications start before (days)"
+                Margin="0,15,0,0"/>
+            <Entry 
+                x:Name="NotificationsStartBeforeInDays"
+                IsVisible="{Binding IsToggled, Source={x:Reference SendNotifications}}"
+                HorizontalOptions="Fill"
+                Keyboard="Numeric"
+                Text="{Binding Schedule.NotificationsStartBeforeInDays}"/>
+
+            <Label 
+                IsVisible="{Binding IsToggled, Source={x:Reference SendNotifications}}"
+                Text="Notifications interval (days)"
+                Margin="0,15,0,0"/>
+            <Entry 
+                x:Name="NotificationsIntervalInDays"
+                IsVisible="{Binding IsToggled, Source={x:Reference SendNotifications}}"
+                HorizontalOptions="Fill"
+                Keyboard="Numeric"
+                Text="{Binding Schedule.NotificationsIntervalInDays}"/>
+
+            <Button Text="Submit" Command="{Binding CreateReminderCommand}" Margin="0,15,0,0"></Button>
+
+            <Label 
+                Text="{Binding ValidationErrorMessage}"
+                TextColor="Red"
+                Margin="0,15,0,0"/>
+        </StackLayout>
+    </ScrollView>
+</abstract:BaseContentPage>
