@@ -96,11 +96,11 @@ namespace MauiClient.ViewModels
             await _navigationService.NavigateToDetailsPageAsync<NewGenericReminderView>(navParams);
         }
 
-        private async Task NavigateToReminderDetails(ReminderPreviewDTO remidner)
+        private async Task NavigateToReminderDetails(ReminderPreviewDTO reminder)
         {
             var navParams = new Dictionary<string, object>
             {
-                { "id", remidner.Id }
+                { "id", reminder.Id }
             };
 
             await _navigationService.NavigateToDetailsPageAsync<GenericReminderView>(navParams);
