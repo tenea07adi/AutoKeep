@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  - Create car details page [#5](https://github.com/tenea07adi/AutoKeep/issues/5)
  - Add logic to create generic reminders [#7](https://github.com/tenea07adi/AutoKeep/issues/7)
  - Disabled dark mode [#9](https://github.com/tenea07adi/AutoKeep/issues/9)
+ - Create generic reminder details page [#11](https://github.com/tenea07adi/AutoKeep/issues/11)
 
 ### Improvements
  - Implement EF with SqlLight [#1](https://github.com/tenea07adi/AutoKeep/issues/1)

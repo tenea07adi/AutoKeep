@@ -10,6 +10,7 @@ namespace MauiClient
             Routing.RegisterRoute(typeof(NewCarView).Name, typeof(NewCarView));
             Routing.RegisterRoute(typeof(CarView).Name, typeof(CarView));
             Routing.RegisterRoute(typeof(NewGenericReminderView).Name, typeof(NewGenericReminderView));
+            Routing.RegisterRoute(typeof(GenericReminderView).Name, typeof(GenericReminderView));
         }
     }
 }

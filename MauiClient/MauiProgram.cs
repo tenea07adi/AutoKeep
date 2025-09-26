@@ -41,6 +41,7 @@ namespace MauiClient
             builder.Services.AddSingleton<NewCarViewModel>();
             builder.Services.AddSingleton<CarViewModel>();
             builder.Services.AddSingleton<NewGenericReminderViewModel>();
+            builder.Services.AddSingleton<GenericReminderViewModel>();
 
 
 #if DEBUG

@@ -53,6 +53,7 @@
                     ItemsSource="{Binding Reminders}"
                     SelectionMode="Single"
                     SelectedItem="{Binding SelectedReminder}"
+                    SelectionChangedCommand="{Binding NavigateToReminderDetailsCommand}" 
                     SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference RemindersCollectionView}}"
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill"

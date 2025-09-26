@@ -25,6 +25,11 @@ namespace MauiClient.ViewModels
             _ = NavigateToNewGenericReminder();
         });
 
+        public Command<ReminderPreviewDTO> NavigateToReminderDetailsCommand => new Command<ReminderPreviewDTO>((ReminderPreviewDTO reminder) =>
+        {
+            _ = NavigateToReminderDetails(reminder);
+        });
+
         public CarViewModel(
             INavigationService navigationService,
             IGenericEntityService<Car> carService,
@@ -89,6 +94,16 @@ namespace MauiClient.ViewModels
             };
 
             await _navigationService.NavigateToDetailsPageAsync<NewGenericReminderView>(navParams);
+        }
+
+        private async Task NavigateToReminderDetails(ReminderPreviewDTO remidner)
+        {
+            var navParams = new Dictionary<string, object>
+            {
+                { "id", remidner.Id }
+            };
+
+            await _navigationService.NavigateToDetailsPageAsync<GenericReminderView>(navParams);
         }
 
         private async Task<List<ReminderPreviewDTO>> GetRemindersPreviewAsync(List<GenericReminder> genericReminders)
