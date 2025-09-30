@@ -83,6 +83,9 @@
 	  <MauiXaml Update="UI\Pages\NewGenericReminderView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\Pages\RescheduleReminderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\PartialViews\CarFormPartialView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
