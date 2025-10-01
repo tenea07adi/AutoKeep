@@ -1,4 +1,5 @@
-﻿using Core.Entities.Persisted;
+﻿using AsyncAwaitBestPractices;
+using Core.Entities.Persisted;
 using Core.Ports.Driving;
 using MauiClient.Adapters.Navigation;
 using MauiClient.UI.Pages;
@@ -101,6 +102,19 @@ namespace MauiClient.ViewModels
             }
 
             Awaitable().Wait();
+        }
+
+        public override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            async Task Awaitable()
+            {
+                await LoadReminder();
+                await LoadSchedules();
+            }
+
+            Awaitable().SafeFireAndForget();
         }
 
         private async Task NavigateToReschedule()
