@@ -1,6 +1,8 @@
-﻿using Core.Entities.Persisted;
+﻿using AsyncAwaitBestPractices;
+using Core.Entities.Persisted;
 using Core.Ports.Driving;
 using MauiClient.Adapters.Navigation;
+using MauiClient.UI.Pages;
 using MauiClient.ViewModels.Abstract;
 using System.Collections.ObjectModel;
 
@@ -69,6 +71,11 @@ namespace MauiClient.ViewModels
             ChangeDisplayHistory(displayHistory);
         });
 
+        public Command NavigateToRescheduleCommand => new Command(() =>
+        {
+            _ = NavigateToReschedule();
+        });
+
         public GenericReminderViewModel(
             INavigationService navigationService,
             IGenericEntityService<GenericReminder> reminderService,
@@ -95,6 +102,29 @@ namespace MauiClient.ViewModels
             }
 
             Awaitable().Wait();
+        }
+
+        public override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            async Task Awaitable()
+            {
+                await LoadReminder();
+                await LoadSchedules();
+            }
+
+            Awaitable().SafeFireAndForget();
+        }
+
+        private async Task NavigateToReschedule()
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "ReminderId", _reminderId }
+            };
+
+            await _navigationService.NavigateToAsync(nameof(RescheduleReminderView), parameters);
         }
 
         private async Task LoadReminder()
