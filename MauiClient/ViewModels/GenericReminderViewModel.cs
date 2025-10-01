@@ -2,6 +2,7 @@
 using Core.Entities.Persisted;
 using Core.Ports.Driving;
 using MauiClient.Adapters.Navigation;
+using MauiClient.Adapters.Popup;
 using MauiClient.UI.Pages;
 using MauiClient.ViewModels.Abstract;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace MauiClient.ViewModels
     public class GenericReminderViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IPopupNotificationsService _popupService;
         private IGenericEntityService<GenericReminder> _reminderService;
         private IGenericEntityService<Schedule> _scheduleService;
 
@@ -76,12 +78,19 @@ namespace MauiClient.ViewModels
             _ = NavigateToReschedule();
         });
 
+        public Command DeleteReminderCommand => new Command(() =>
+        {
+            _ = DeleteReminder();
+        });
+
         public GenericReminderViewModel(
             INavigationService navigationService,
+            IPopupNotificationsService popupService,
             IGenericEntityService<GenericReminder> reminderService,
             IGenericEntityService<Schedule> scheduleService)
         {
             _navigationService = navigationService;
+            _popupService = popupService;
             _reminderService = reminderService;
             _scheduleService = scheduleService;
         }
@@ -147,6 +156,29 @@ namespace MauiClient.ViewModels
 
             OldSchedules = new ObservableCollection<Schedule>(oldSchedules);
             ActiveSchedule = activeSchedule.FirstOrDefault();
+        }
+
+        private async Task DeleteReminder()
+        {
+            if(Reminder.Id == 0)
+            {
+                return;
+            }
+
+            if(await _popupService.ShowQuestionPopupAsync("Delete Reminder", "Do you want to delete this reminder? Its schedules will be deleted automatically.", "Yes", "No") == false)
+            {
+                return;
+            }
+
+            var reminderSchedules = await _scheduleService.GetAsync(c => c.ReminderId == Reminder.Id);
+
+            foreach(var schedule in reminderSchedules)
+            {
+                await _scheduleService.DeleteAsync(schedule.Id);
+            }
+
+            await _reminderService.DeleteAsync(Reminder.Id);
+            _navigationService.NavigateBackNative();
         }
 
         private void ChangeDisplayHistory(bool displayHistory)

@@ -62,6 +62,13 @@
 
                     <pv:DisplayFieldPartialView FieldName="Description:" FieldValue="" Padding="0,5,0,0" />
                     <Label Text="{Binding Reminder.Description}" HorizontalOptions="Start" Style="{StaticResource SimpleText}"  />
+
+                    <Button
+                        Grid.Row="0"
+                        Text="Delete reminder"
+                        Margin="0,15,0,0"
+                        BackgroundColor="{StaticResource DangerRed}"
+                        Command="{Binding DeleteReminderCommand}" />
                 </StackLayout>
             </Border>
             <Border
