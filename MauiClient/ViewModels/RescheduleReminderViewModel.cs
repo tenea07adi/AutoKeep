@@ -68,6 +68,7 @@ namespace MauiClient.ViewModels
             if (!query.ContainsKey("ReminderId"))
             {
                 _navigationService.NavigateBackNative();
+                return;
             }
 
             ReminderId = (int)query["ReminderId"];
