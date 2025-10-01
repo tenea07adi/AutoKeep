@@ -3,6 +3,7 @@ using Core.Ports.Driven;
 using Core.Ports.Driving;
 using Core.Services;
 using MauiClient.Adapters.Navigation;
+using MauiClient.Adapters.Popup;
 using MauiClient.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -36,6 +37,7 @@ namespace MauiClient
             builder.Services.AddTransient(typeof(IGenericRepo<>), typeof(SqliteGenericRepo<>));
             builder.Services.AddTransient(typeof(IGenericEntityService<>), typeof(GenericEntityService<>));
             builder.Services.AddTransient<INavigationService, ShellNavigationService>();
+            builder.Services.AddTransient<IPopupNotificationsService, PopupNotificationsService>();
 
             builder.Services.AddSingleton<CarsListViewModel>();
             builder.Services.AddSingleton<NewCarViewModel>();

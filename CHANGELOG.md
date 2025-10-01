@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  - Create generic reminder details page [#11](https://github.com/tenea07adi/AutoKeep/issues/11)
  - Update app appearances [#15](https://github.com/tenea07adi/AutoKeep/issues/15)
  - Reschedule logic should exist for reminders [#12](https://github.com/tenea07adi/AutoKeep/issues/12)
+ - Create delete logic for reminders [#13](https://github.com/tenea07adi/AutoKeep/issues/13)
 
 ### Improvements
  - Implement EF with SqlLight [#1](https://github.com/tenea07adi/AutoKeep/issues/1)
