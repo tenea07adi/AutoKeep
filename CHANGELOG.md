@@ -22,3 +22,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
  ### Bugs
  - Fix page titles and other issues [#19](https://github.com/tenea07adi/AutoKeep/issues/19)
+ - Fix overdue reminder preview display [#24](https://github.com/tenea07adi/AutoKeep/issues/24)

@@ -132,9 +132,10 @@ namespace MauiClient.ViewModels
                 {
                     continue;
                 }
-                var daysRemaining = (schedule.ScheduledDate - DateTime.Now).TotalDays;
-                var totalDays = (schedule.ScheduledDate - schedule.LastScheduledDate).TotalDays;
-                var progress = 1 - Math.Round(daysRemaining / totalDays, 2);
+
+                var daysRemaining = (schedule.ScheduledDate.Date - DateTime.Now.Date).TotalDays;
+                var totalDays = (schedule.ScheduledDate.Date - schedule.LastScheduledDate.Date).TotalDays;
+                var progress = daysRemaining <= 0 ? 1 : (1 - Math.Round(daysRemaining / totalDays, 2));
 
                 var warningPoint = schedule.SendNotifications
                     ? schedule.NotificationsStartBeforeInDays

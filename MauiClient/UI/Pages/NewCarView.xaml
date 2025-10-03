@@ -5,47 +5,49 @@
              xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
              Title="New Car"
              Padding="10">
-    <VerticalStackLayout>
-        <Label 
-            Text="Vehicle nickname"
-            Margin="0,15,0,0"/>
-        <Entry 
-            x:Name="NicknameInput"
-            HorizontalOptions="Fill"
-            Text="{Binding Car.Nickname}"
-            MaxLength="100"/>
-        
-        <Label 
-            Text="Vehicle registration plate"
-            Margin="0,15,0,0"/>
-        <Entry 
-            x:Name="VehicleRegistrationPlateInput"
-            HorizontalOptions="Fill"
-            Text="{Binding Car.VehicleRegistrationPlate}"
-            IsTextPredictionEnabled="false"
-            MaxLength="100"/>
+    <ScrollView>
+        <StackLayout Orientation="Vertical">
+            <Label 
+                Text="Vehicle nickname"
+                Margin="0,15,0,0"/>
+            <Entry 
+                x:Name="NicknameInput"
+                HorizontalOptions="Fill"
+                Text="{Binding Car.Nickname}"
+                MaxLength="100"/>
 
-        <Label 
-            Text="Vehicle fabrication date"
-            Margin="0,15,0,0"/>
-        <DatePicker
-            x:Name="FabricationDateInput"
-            Date="{Binding Car.FabricationDate}"/>
+            <Label 
+                Text="Vehicle registration plate"
+                Margin="0,15,0,0"/>
+            <Entry 
+                x:Name="VehicleRegistrationPlateInput"
+                HorizontalOptions="Fill"
+                Text="{Binding Car.VehicleRegistrationPlate}"
+                IsTextPredictionEnabled="false"
+                MaxLength="100"/>
 
-        <Label 
-            Text="Vehicle km passed"
-            Margin="0,15,0,0"/>
-        <Entry 
-            x:Name="KmPassedInput"
-            Keyboard="Numeric"
-            HorizontalOptions="Fill"
-            Text="{Binding Car.KmPassed}"
-            MaxLength="100"/>
+            <Label 
+                Text="Vehicle fabrication date"
+                Margin="0,15,0,0"/>
+            <DatePicker
+                x:Name="FabricationDateInput"
+                Date="{Binding Car.FabricationDate}"/>
 
-        <Button 
-            x:Name="AddButton"
-            Text="Add"
-            Margin="0,15,0,0"
-            Command="{Binding AddNewCar}" />
-    </VerticalStackLayout>
+            <Label 
+                Text="Vehicle km passed"
+                Margin="0,15,0,0"/>
+            <Entry 
+                x:Name="KmPassedInput"
+                Keyboard="Numeric"
+                HorizontalOptions="Fill"
+                Text="{Binding Car.KmPassed}"
+                MaxLength="100"/>
+
+            <Button 
+                x:Name="AddButton"
+                Text="Add"
+                Margin="0,15,0,0"
+                Command="{Binding AddNewCar}" />
+        </StackLayout>
+    </ScrollView>
 </abstract:BaseContentPage>
