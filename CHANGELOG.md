@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  - Reschedule logic should exist for reminders [#12](https://github.com/tenea07adi/AutoKeep/issues/12)
  - Create delete logic for reminders [#13](https://github.com/tenea07adi/AutoKeep/issues/13)
  - Implement car deletion logic [#21](https://github.com/tenea07adi/AutoKeep/issues/21)
+ - Update the learn more button to open the webpage [#25](https://github.com/tenea07adi/AutoKeep/issues/25)
 
 ### Improvements
  - Implement EF with SqlLight [#1](https://github.com/tenea07adi/AutoKeep/issues/1)
