@@ -29,11 +29,12 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
             <Button
-                x:Name="CounterBtn"
+                x:Name="LearnMore"
                 Text="Learn more" 
                 SemanticProperties.Hint="Go to our website."
-                IsEnabled="False"
-                HorizontalOptions="Fill" />
+                IsEnabled="True"
+                HorizontalOptions="Fill" 
+                Clicked="LearnMore_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 
