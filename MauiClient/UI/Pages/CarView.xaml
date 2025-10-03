@@ -10,7 +10,7 @@
              xmlns:dtos="clr-namespace:Core.Entities.DTOs;assembly=Core"
              xmlns:vm="clr-namespace:MauiClient.ViewModels"
              x:DataType="vm:CarViewModel"
-             Title="CarView">
+             Title="Car Details">
 
     <ContentPage.Resources>
         <ResourceDictionary>

@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:MauiClient.ViewModels"
              x:Class="MauiClient.UI.Pages.CarsListView"
              x:DataType="vm:CarsListViewModel"
-             Title="CarsListView"
+             Title="Cars List"
              Padding="10">
     <Grid RowDefinitions="Auto, *" RowSpacing="10">
         <!-- Row 0: Butonul -->
@@ -33,7 +33,7 @@
                         <StackLayout Orientation="Vertical" VerticalOptions="Start">
                             <StackLayout Orientation="Horizontal">
                                 <Image
-                                    Source="check.png"
+                                    Source="sedan.png"
                                     HeightRequest="50"
                                     Aspect="AspectFit"
                                     Margin="0,0,0,0"/>

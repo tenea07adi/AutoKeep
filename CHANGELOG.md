@@ -18,3 +18,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Improvements
  - Implement EF with SqlLight [#1](https://github.com/tenea07adi/AutoKeep/issues/1)
  - Improve UI [#3](https://github.com/tenea07adi/AutoKeep/issues/3)
+
+ ### Bugs
+ - Fix page titles and other issues [#19](https://github.com/tenea07adi/AutoKeep/issues/19)
