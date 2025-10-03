@@ -15,95 +15,96 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Orientation="Vertical">
-        <StackLayout Orientation="Horizontal">
-            <Border HorizontalOptions="FillAndExpand">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="True">
-                        <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="False">
-                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                    </DataTrigger>
-                </Border.Triggers>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ChangeDisplayHistoryCommand}" CommandParameter="{StaticResource False}" />
-                </Border.GestureRecognizers>
-                <Label Text="Reminder details" Style="{StaticResource SimpleText}" HorizontalOptions="Center">
-                </Label>
-            </Border>
-            <Border HorizontalOptions="FillAndExpand">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="False">
-                        <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="True">
-                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                    </DataTrigger>
-                </Border.Triggers>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ChangeDisplayHistoryCommand}" CommandParameter="{StaticResource True}" />
-                </Border.GestureRecognizers>
+    <ScrollView>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <Border HorizontalOptions="FillAndExpand">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="False">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeDisplayHistoryCommand}" CommandParameter="{StaticResource False}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="Reminder details" Style="{StaticResource SimpleText}" HorizontalOptions="Center">
+                    </Label>
+                </Border>
+                <Border HorizontalOptions="FillAndExpand">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="False">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding DisplayHistory}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeDisplayHistoryCommand}" CommandParameter="{StaticResource True}" />
+                    </Border.GestureRecognizers>
                     <Label Text="History" Style="{StaticResource SimpleText}" HorizontalOptions="Center">
-                </Label>
-            </Border>
-        </StackLayout>
-        <StackLayout 
+                    </Label>
+                </Border>
+            </StackLayout>
+            <StackLayout 
             Orientation="Vertical" 
             IsVisible="{Binding DisplayHistory, Converter={StaticResource InvertedBoolConverter}}">
-            <Border
+                <Border
                 Margin="0,20,0,0">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="Reminder details" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="Reminder details" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
                    FontAttributes="Bold" TextTransform="Uppercase" />
 
-                    <Border Padding="0"></Border>
-                    <pv:DisplayFieldPartialView FieldName="Plate:" FieldValue="{Binding Reminder.Name}" Padding="0,5,0,0" />
+                        <Border Padding="0"></Border>
+                        <pv:DisplayFieldPartialView FieldName="Plate:" FieldValue="{Binding Reminder.Name}" Padding="0,5,0,0" />
 
-                    <pv:DisplayFieldPartialView FieldName="Description:" FieldValue="" Padding="0,5,0,0" />
-                    <Label Text="{Binding Reminder.Description}" HorizontalOptions="Start" Style="{StaticResource SimpleText}"  />
+                        <pv:DisplayFieldPartialView FieldName="Description:" FieldValue="" Padding="0,5,0,0" />
+                        <Label Text="{Binding Reminder.Description}" HorizontalOptions="Start" Style="{StaticResource SimpleText}"  />
 
-                    <Button
+                        <Button
                         Grid.Row="0"
                         Text="Delete reminder"
                         Margin="0,15,0,0"
                         BackgroundColor="{StaticResource DangerRed}"
                         Command="{Binding DeleteReminderCommand}" />
-                </StackLayout>
-            </Border>
-            <Border
+                    </StackLayout>
+                </Border>
+                <Border
             Margin="0,20,0,0">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="Active schedule" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="Active schedule" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
                    FontAttributes="Bold" TextTransform="Uppercase" />
-                    <Border Padding="0"></Border>
-                    <pv:DisplayFieldPartialView FieldName="Schedule date:" FieldValue="{Binding ActiveSchedule.ScheduledDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
-                    <pv:DisplayFieldPartialView FieldName="Send notifications:" FieldValue="{Binding ActiveSchedule.SendNotifications}" Padding="0,5,0,0" />
-                    <pv:DisplayFieldPartialView FieldName="Notifications start before:" FieldValue="{Binding ActiveSchedule.NotificationsStartBeforeInDays}" Format="{}{0:F0} days" Padding="0,5,0,0" />
-                    <pv:DisplayFieldPartialView FieldName="Notifications frequency:" FieldValue="{Binding ActiveSchedule.NotificationsIntervalInDays}" Format="{}{0:F0} days" Padding="0,5,0,0" />
-                    
-                    <Button
+                        <Border Padding="0"></Border>
+                        <pv:DisplayFieldPartialView FieldName="Schedule date:" FieldValue="{Binding ActiveSchedule.ScheduledDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
+                        <pv:DisplayFieldPartialView FieldName="Send notifications:" FieldValue="{Binding ActiveSchedule.SendNotifications}" Padding="0,5,0,0" />
+                        <pv:DisplayFieldPartialView FieldName="Notifications start before:" FieldValue="{Binding ActiveSchedule.NotificationsStartBeforeInDays}" Format="{}{0:F0} days" Padding="0,5,0,0" />
+                        <pv:DisplayFieldPartialView FieldName="Notifications frequency:" FieldValue="{Binding ActiveSchedule.NotificationsIntervalInDays}" Format="{}{0:F0} days" Padding="0,5,0,0" />
+
+                        <Button
                         Grid.Row="0"
                         Text="Reschedule"
                         Margin="0,15,0,0"
                         Command="{Binding NavigateToRescheduleCommand}" />
-                </StackLayout>
-            </Border>
-        </StackLayout>
-        <StackLayout Orientation="Vertical" IsVisible="{Binding DisplayHistory}">
-            <Border
+                    </StackLayout>
+                </Border>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" IsVisible="{Binding DisplayHistory}">
+                <Border
                 Margin="0,20,0,0">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="History" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="History" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
                         FontAttributes="Bold" TextTransform="Uppercase" />
-                    <Border Padding="0"></Border>
-                    <Label 
+                        <Border Padding="0"></Border>
+                        <Label 
                         IsVisible="{Binding HaveHistory, Converter={StaticResource InvertedBoolConverter}}"
                         Text="No data" 
                         Style="{StaticResource SimpleText}" 
                         HorizontalOptions="Center"
                         Margin="0,20,0,0"/>
-                    <CollectionView 
+                        <CollectionView 
                         x:Name="RemindersCollectionView"
                         IsVisible="{Binding HaveHistory}"
                         ItemsSource="{Binding OldSchedules}"
@@ -111,19 +112,20 @@
                         HorizontalOptions="Fill"
                         VerticalOptions="Fill"
                         Margin="0,20,0,0">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Schedule">
-                                <Border Margin="0,5,0,0">
-                                    <StackLayout Orientation="Vertical" VerticalOptions="Start">
-                                        <pv:DisplayFieldPartialView FieldName="Schedule date:" FieldValue="{Binding ScheduledDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
-                                        <pv:DisplayFieldPartialView FieldName="Send notifications:" FieldValue="{Binding SendNotifications}" Padding="0,5,0,0" />
-                                    </StackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
-            </Border>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Schedule">
+                                    <Border Margin="0,5,0,0">
+                                        <StackLayout Orientation="Vertical" VerticalOptions="Start">
+                                            <pv:DisplayFieldPartialView FieldName="Schedule date:" FieldValue="{Binding ScheduledDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
+                                            <pv:DisplayFieldPartialView FieldName="Send notifications:" FieldValue="{Binding SendNotifications}" Padding="0,5,0,0" />
+                                        </StackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </abstract:BaseContentPage>
