@@ -2,6 +2,7 @@
 using Core.Entities.Persisted;
 using Core.Ports.Driving;
 using MauiClient.Adapters.Navigation;
+using MauiClient.Adapters.Popup;
 using MauiClient.UI.Pages;
 using MauiClient.ViewModels.Abstract;
 using System.Collections.ObjectModel;
@@ -11,10 +12,11 @@ namespace MauiClient.ViewModels
 {
     public class CarViewModel : BaseViewModel
     {
-        private readonly IGenericEntityService<Car> _carService;
+        private readonly ICarEntityService _carService;
         private readonly IGenericEntityService<GenericReminder> _genericReminderService;
         private readonly IGenericEntityService<Schedule> _scheduleService;
         private readonly INavigationService _navigationService;
+        private readonly IPopupNotificationsService _popupService;
 
         public Car Car { get; set; }
 
@@ -26,6 +28,11 @@ namespace MauiClient.ViewModels
             _ = NavigateToNewGenericReminder();
         });
 
+        public Command DeleteCarCommand => new Command(() =>
+        {
+            _ = DeleteCar();
+        });
+
         public Command<ReminderPreviewDTO> NavigateToReminderDetailsCommand => new Command<ReminderPreviewDTO>((ReminderPreviewDTO reminder) =>
         {
             _ = NavigateToReminderDetails(reminder);
@@ -33,14 +40,16 @@ namespace MauiClient.ViewModels
 
         public CarViewModel(
             INavigationService navigationService,
-            IGenericEntityService<Car> carService,
+            ICarEntityService carService,
             IGenericEntityService<GenericReminder> genericReminderService,
-            IGenericEntityService<Schedule> scheduleService)
+            IGenericEntityService<Schedule> scheduleService,
+            IPopupNotificationsService popupService)
         {
             _navigationService = navigationService;
             _carService = carService;
             _genericReminderService = genericReminderService;
             _scheduleService = scheduleService;
+            _popupService = popupService;
         }
 
         public override void OnNavigatedToWithParams(IDictionary<string, object> query)
@@ -157,6 +166,31 @@ namespace MauiClient.ViewModels
                 });
             }
             return reminders;
+        }
+    
+        private async Task DeleteCar()
+        {
+            if (Car == null || Car.Id == 0)
+            {
+                return;
+            }
+
+            if (await _popupService.ShowQuestionPopupAsync("Delete Car", "Do you want to delete this car? Its reminders will be deleted automatically.", "Yes", "No") == false)
+            {
+                return;
+            }
+
+            try
+            {
+                await _carService.DeleteAsync(Car.Id);
+            }
+            catch (Exception ex)
+            {
+                await _popupService.ShowPopupAsync("Operation Failed!", "An unexpected error stopped the process.", "Ok");
+                return;
+            }
+
+            _navigationService.NavigateBackNative();
         }
     }
 }

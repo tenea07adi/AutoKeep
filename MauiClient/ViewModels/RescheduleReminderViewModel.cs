@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Persisted;
 using Core.Ports.Driving;
 using MauiClient.Adapters.Navigation;
+using MauiClient.Adapters.Popup;
 using MauiClient.ViewModels.Abstract;
 using System.Text;
 using System.Text.Json;
@@ -10,7 +11,10 @@ namespace MauiClient.ViewModels
     public class RescheduleReminderViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IPopupNotificationsService _popupService;
+
         private readonly IGenericEntityService<Schedule> _scheduleService;
+        private readonly IReminderEntityService<GenericReminder> _genericReminderService;
 
         public int ReminderId 
         { 
@@ -55,10 +59,14 @@ namespace MauiClient.ViewModels
 
         public RescheduleReminderViewModel(
             INavigationService navigationService,
-            IGenericEntityService<Schedule> scheduleService)
+            IPopupNotificationsService popupService,
+            IGenericEntityService<Schedule> scheduleService,
+            IReminderEntityService<GenericReminder> genericReminderService)
         {
             _navigationService = navigationService;
+            _popupService = popupService;
             _scheduleService = scheduleService;
+            _genericReminderService = genericReminderService;
         }
 
         public override void OnNavigatedToWithParams(IDictionary<string, object> query)
@@ -85,20 +93,12 @@ namespace MauiClient.ViewModels
 
             try
             {
-                NewSchedule.Id = 0;
-                NewSchedule.ReminderId = ReminderId;
-                NewSchedule.IsActive = true;
-                await _scheduleService.AddAsync(NewSchedule);
+                await _genericReminderService.RescheduleAsync(ReminderId, NewSchedule);
             }
             catch (Exception ex)
             {
-                _navigationService.NavigateBackNative();
-            }
-
-            if (_lastSchedule != null)
-            {
-                _lastSchedule.IsActive = false;
-                await _scheduleService.UpdateAsync(_lastSchedule);
+                await _popupService.ShowPopupAsync("Operation Failed!", "An unexpected error stopped the process.", "Ok");
+                return;
             }
 
             _navigationService.NavigateBackNative();

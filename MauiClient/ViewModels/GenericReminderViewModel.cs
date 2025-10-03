@@ -13,7 +13,7 @@ namespace MauiClient.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IPopupNotificationsService _popupService;
-        private IGenericEntityService<GenericReminder> _reminderService;
+        private IReminderEntityService<GenericReminder> _reminderService;
         private IGenericEntityService<Schedule> _scheduleService;
 
         public bool DisplayHistory
@@ -86,7 +86,7 @@ namespace MauiClient.ViewModels
         public GenericReminderViewModel(
             INavigationService navigationService,
             IPopupNotificationsService popupService,
-            IGenericEntityService<GenericReminder> reminderService,
+            IReminderEntityService<GenericReminder> reminderService,
             IGenericEntityService<Schedule> scheduleService)
         {
             _navigationService = navigationService;
@@ -170,14 +170,17 @@ namespace MauiClient.ViewModels
                 return;
             }
 
-            var reminderSchedules = await _scheduleService.GetAsync(c => c.ReminderId == Reminder.Id);
-
-            foreach(var schedule in reminderSchedules)
+            try
             {
-                await _scheduleService.DeleteAsync(schedule.Id);
+                await _reminderService.DeleteAsync(Reminder.Id);
+            }
+            catch (Exception ex)
+            {
+                await _popupService.ShowPopupAsync("Operation Failed!", "An unexpected error stopped the process.", "Ok");
+                return;
             }
 
-            await _reminderService.DeleteAsync(Reminder.Id);
+
             _navigationService.NavigateBackNative();
         }
 

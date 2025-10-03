@@ -36,6 +36,10 @@ namespace MauiClient
 
             builder.Services.AddTransient(typeof(IGenericRepo<>), typeof(SqliteGenericRepo<>));
             builder.Services.AddTransient(typeof(IGenericEntityService<>), typeof(GenericEntityService<>));
+
+            builder.Services.AddTransient(typeof(IReminderEntityService<>), typeof(ReminderEntityService<>));
+            builder.Services.AddTransient<ICarEntityService, CarEntityService>();
+
             builder.Services.AddTransient<INavigationService, ShellNavigationService>();
             builder.Services.AddTransient<IPopupNotificationsService, PopupNotificationsService>();
 
