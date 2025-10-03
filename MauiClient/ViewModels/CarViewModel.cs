@@ -5,6 +5,7 @@ using MauiClient.Adapters.Navigation;
 using MauiClient.UI.Pages;
 using MauiClient.ViewModels.Abstract;
 using System.Collections.ObjectModel;
+using static MauiClient.Constants.Constants;
 
 namespace MauiClient.ViewModels
 {
@@ -126,12 +127,22 @@ namespace MauiClient.ViewModels
                 var totalDays = (schedule.ScheduledDate - schedule.LastScheduledDate).TotalDays;
                 var progress = 1 - Math.Round(daysRemaining / totalDays, 2);
 
-                var alertColor = daysRemaining switch
+                var warningPoint = schedule.SendNotifications
+                    ? schedule.NotificationsStartBeforeInDays
+                    : (totalDays * SchedulesConstants.ScheduleWarningPointPercent > SchedulesConstants.ScheduleWarningPointMinValue
+                        ? totalDays * SchedulesConstants.ScheduleWarningPointPercent 
+                        : SchedulesConstants.ScheduleWarningPointMinValue);
+
+                var alertColor = "#2FD300";
+
+                if(daysRemaining <= 0)
                 {
-                    <= 0 => "#E90017",
-                    <= 14 => "#FFB73E",
-                    _ => "#2FD300"
-                };
+                    alertColor = "#E90017";
+                }
+                else if (daysRemaining <= warningPoint)
+                {
+                    alertColor = "#FFB73E";
+                }
 
                 reminders.Add(new ReminderPreviewDTO
                 {
