@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiClient.UI.Pages.NewCarView"
              xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
-             Title="New car"
+             Title="New Car"
              Padding="10">
     <VerticalStackLayout>
         <Label 

@@ -20,7 +20,7 @@ namespace Core.Services
             await _genericRepo.AddAsync(entity);
         }
 
-        public async Task DeleteAsync(int id)
+        public virtual async Task DeleteAsync(int id)
         {
             await _genericRepo.DeleteAsync(id);
         }
