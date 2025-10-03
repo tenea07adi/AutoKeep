@@ -133,15 +133,15 @@ namespace MauiClient.ViewModels
                         ? totalDays * SchedulesConstants.ScheduleWarningPointPercent 
                         : SchedulesConstants.ScheduleWarningPointMinValue);
 
-                var alertColor = "#2FD300";
+                var alertColor = SchedulesConstants.GoodScheduleColor;
 
                 if(daysRemaining <= 0)
                 {
-                    alertColor = "#E90017";
+                    alertColor = SchedulesConstants.ExpiredScheduleColor;
                 }
                 else if (daysRemaining <= warningPoint)
                 {
-                    alertColor = "#FFB73E";
+                    alertColor = SchedulesConstants.WarningScheduleColor;
                 }
 
                 reminders.Add(new ReminderPreviewDTO
