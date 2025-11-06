@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+.body {
+    background-color: #E9E3DF;
+}
+.content {
+    width: 90vw;
+}
+.banner {
+    background-color: #465C88;
+    color: #FF7A30;
+}
+
+.b1 {
+    background-color: #E9E3DF;
+}
+
+.b2 {
+    background-color: #465C88;
+}

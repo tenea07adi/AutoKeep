@@ -2,30 +2,58 @@
 <abstract:BaseContentPage 
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiClient.UI.Pages.CarsListView"
              xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
-             Title="CarsListView"
+             xmlns:models="clr-namespace:Core.Entities.Persisted;assembly=Core"
+             xmlns:vm="clr-namespace:MauiClient.ViewModels"
+             x:Class="MauiClient.UI.Pages.CarsListView"
+             x:DataType="vm:CarsListViewModel"
+             Title="Cars List"
              Padding="10">
-    <Grid RowDefinitions="Auto, *" RowSpacing="10">
-        <!-- Row 0: Butonul -->
-        <Button
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *" RowSpacing="10">
+            <!-- Row 0: Butonul -->
+            <Button
             Grid.Row="0"
             Text="Add a new car"
             Command="{Binding NavigateToNewCarCommand}" />
 
-        <!-- Row 1: Lista, care umple restul spațiului -->
-        <ListView 
+            <!-- Row 1: Lista, care umple restul spațiului -->
+            <CollectionView 
+            x:Name="ItemsCollectionView"
             Grid.Row="1"
             ItemsSource="{Binding Cars}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedCar}"
+            SelectionChangedCommand="{Binding NavigateToCarDetailsCommand}" 
+            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ItemsCollectionView}}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell
-                        Text="{Binding VehicleRegistrationPlate, StringFormat='Plates: {0:F0}'}"
-                        Detail="{Binding Nickname, StringFormat='Nickname: {0:F0}'}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Car">
+                        <Border>
+                            <StackLayout Orientation="Vertical" VerticalOptions="Start">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image
+                                    Source="sedan.png"
+                                    HeightRequest="50"
+                                    Aspect="AspectFit"
+                                    Margin="0,0,0,0"/>
+                                    <Label Text="{Binding VehicleRegistrationPlate, StringFormat='Plates: {0:F0}'}"
+                                        HorizontalOptions="Start" Style="{StaticResource SimpleText}" Margin="15,12,0,0" />
+                                    <Label Text="{Binding Nickname, StringFormat=' | {0:F0}'}"
+                                    HorizontalOptions="Start" Style="{StaticResource SimpleText}" Margin="0,12,0,0" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Label Text="{Binding FabricationDate, StringFormat='Fabrication date: {0:dd/MM/yyyy}'}" 
+                                       HorizontalOptions="Start" Style="{StaticResource SimpleSubText}" />
+                                    <Label Text="{Binding KmPassed, StringFormat='Km passed: {0:F0}'}" 
+                                       HorizontalOptions="CenterAndExpand" Style="{StaticResource SimpleSubText}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ScrollView>
 </abstract:BaseContentPage>

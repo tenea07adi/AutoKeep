@@ -2,23 +2,23 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void LearnMore_Clicked(object sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            try
+            {
+                Uri uri = new Uri("https://www.autokeep.aditenea.net");
+                await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, e.g., if the browser is not available or the URL is invalid
+                Console.WriteLine($"Error opening browser: {ex.Message}");
+            }
         }
     }
 

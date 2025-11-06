@@ -3,6 +3,11 @@ namespace MauiClient.Adapters.Navigation
 {
     public class ShellNavigationService : INavigationService
     {
+        public void NavigateBackNative()
+        {
+            Shell.Current.Navigation.PopAsync(animated: true);
+        }
+
         public async Task NavigateBackAsync(Dictionary<string, object>? navigationParams = null)
         {
             var dest = $"..";
@@ -32,11 +37,11 @@ namespace MauiClient.Adapters.Navigation
 
             if (parameters != null)
             {
-                await Shell.Current.GoToAsync(route, parameters);
+                await Shell.Current.GoToAsync(route, animate: true, parameters);
             }
             else
             {
-                await Shell.Current.GoToAsync(route);
+                await Shell.Current.GoToAsync(route, animate: true);
             }
         }
     }

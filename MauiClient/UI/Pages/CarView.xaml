@@ -2,13 +2,109 @@
 <abstract:BaseContentPage 
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MauiClient.UI.Pages.CarView"
+             xmlns:pv="clr-namespace:MauiClient.UI.PartialViews"
              xmlns:abstract="clr-namespace:MauiClient.UI.Abstract"
-             Title="CarView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:models="clr-namespace:Core.Entities.Persisted;assembly=Core"
+             xmlns:dtos="clr-namespace:Core.Entities.DTOs;assembly=Core"
+             xmlns:vm="clr-namespace:MauiClient.ViewModels"
+             x:DataType="vm:CarViewModel"
+             Title="Car Details">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:BoolToObjectConverter x:Key="IsValidConverter" 
+                TrueObject="ON" 
+                FalseObject="OFF"/>
+            <toolkit:BoolToObjectConverter x:Key="IsNotificationsOn" 
+                TrueObject="#2FD300" 
+                FalseObject="#E90017"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Padding="15">
+            <Border>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Car details" HorizontalOptions="Start" Style="{StaticResource SimpleTextTitle}" 
+                   FontAttributes="Bold" TextTransform="Uppercase" />
+                    <Border Padding="0"></Border>
+                    <pv:DisplayFieldPartialView FieldName="Plate:" FieldValue="{Binding Car.VehicleRegistrationPlate}" Padding="0,5,0,0" />
+                    <pv:DisplayFieldPartialView FieldName="Nickname:" FieldValue="{Binding Car.Nickname}" Padding="0,5,0,0" />
+                    <pv:DisplayFieldPartialView FieldName="Fabrication date:" FieldValue="{Binding Car.FabricationDate, StringFormat='{0:yyyy-MM-dd}'}" Padding="0,5,0,0" />
+                    <pv:DisplayFieldPartialView FieldName="Km passed:" FieldValue="{Binding Car.KmPassed}" Format="{}{0:F0} KM" Padding="0,5,0,0" />
+
+                    <Button
+                        Grid.Row="0"
+                        Text="Delete car"
+                        Margin="0,15,0,0"
+                        BackgroundColor="{StaticResource DangerRed}"
+                        Command="{Binding DeleteCarCommand}" />
+                </StackLayout>
+            </Border>
+            <Border Margin="0,15,0,0">
+                <StackLayout Orientation="Vertical" Padding="5">
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Reminders" HorizontalOptions="StartAndExpand" Style="{StaticResource SimpleTextTitle}" 
+                        FontAttributes="Bold" TextTransform="Uppercase" />
+                        <ImageButton Source="plus.png" 
+                                 Command="{Binding AddNewGenericReminderCommand}" 
+                                 WidthRequest="25" 
+                                 HeightRequest="25"
+                                 Aspect="Fill"/>
+                    </StackLayout>
+
+                    <CollectionView 
+                    x:Name="RemindersCollectionView"
+                    ItemsSource="{Binding Reminders}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedReminder}"
+                    SelectionChangedCommand="{Binding NavigateToReminderDetailsCommand}" 
+                    SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference RemindersCollectionView}}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Margin="0,20,0,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="dtos:ReminderPreviewDTO">
+                                <Border Margin="0,5,0,0">
+                                    <StackLayout Orientation="Vertical" VerticalOptions="Start">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image
+                                            Source="{Binding Icon}"
+                                            HeightRequest="50"
+                                            Aspect="AspectFit"
+                                            Margin="0,0,0,0"/>
+                                            <StackLayout Orientation="Vertical" Margin="10,0,0,0">
+                                                <Label Text="{Binding ReminderType}"
+                                                   HorizontalOptions="Start" Style="{StaticResource SimpleSubText}" />
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding Name, StringFormat='{0:F0} | '}"
+                                                    HorizontalOptions="Start" Style="{StaticResource SimpleText}" />
+                                                    <Label Text="{Binding DaysRemaining, StringFormat=' {0:F0} days '}"
+                                                    HorizontalOptions="Start" Style="{StaticResource SimpleText}" TextColor="{Binding AlertColorHEX}" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Notifications: "
+                                                    HorizontalOptions="Start" Style="{StaticResource SimpleSubText}" />
+                                                    <Label Text="{Binding SendNotifications, Converter={StaticResource IsValidConverter}}"
+                                                    HorizontalOptions="Start" Style="{StaticResource SimpleSubText}" 
+                                                       TextColor="{Binding SendNotifications, Converter={StaticResource IsNotificationsOn}}">
+                                                    </Label>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <ProgressBar Progress="{Binding Progress}"
+                                            ProgressColor="{Binding AlertColorHEX}" HorizontalOptions="FillAndExpand" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Border>
+        </StackLayout>
+    </ScrollView>
 </abstract:BaseContentPage>
